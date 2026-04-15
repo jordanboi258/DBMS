@@ -1,0 +1,212 @@
+SQL> CREATE TABLE CUSTOMER (
+  2      CUST_NO NUMBER(4) PRIMARY KEY,
+  3      FIRST_NAME VARCHAR2(20) NOT NULL,
+  4      LAST_NAME VARCHAR2(20),
+  5      ADDRESS VARCHAR2(20),
+  6      CITY VARCHAR2(8),
+  7      STATE VARCHAR2(20),
+  8      PIN NUMBER(6),
+  9      B_DATE DATE,
+ 10      STATUS CHAR(1),
+ 11      CONSTRAINT chk_status CHECK (STATUS IN ('V','I','A'))
+ 12  );
+
+Table created.
+
+SQL> INSERT INTO CUSTOMER VALUES
+  2  (1003, 'RAJ', 'BAHADUR', 'SHANTI VILLA', 'UDP', 'KARNATAKA', 576101, '01-AUG-70', 'V');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMER VALUES
+  2  (1004, 'FELIX', 'SIMON', 'M-J-56', 'PJM', 'GOA', 403002, '12-FEB-71', 'A');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMER VALUES
+  2  (1005, 'RAJAN', 'KUTTY', 'A1 TRADERS', 'KNR', 'KERALA', 670001, '09-JUN-71', 'A');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMER VALUES
+  2  (1006, 'SHILPA', 'PAI', '12/4B', 'MNG', 'KARNATAKA', 574154, '11-DEC-70', 'I');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMER VALUES
+  2  (1007, 'BOSCO', 'RAKSHIT', 'R.K. PLAZA', 'BNG', 'KARNATAKA', 576201, '01-JAN-71', 'A');
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER;
+
+   CUST_NO FIRST_NAME           LAST_NAME            ADDRESS                    
+---------- -------------------- -------------------- --------------------       
+CITY     STATE                       PIN B_DATE    S                            
+-------- -------------------- ---------- --------- -                            
+      1003 RAJ                  BAHADUR              SHANTI VILLA               
+UDP      KARNATAKA                576101 01-AUG-70 V                            
+                                                                                
+      1004 FELIX                SIMON                M-J-56                     
+PJM      GOA                      403002 12-FEB-71 A                            
+                                                                                
+      1005 RAJAN                KUTTY                A1 TRADERS                 
+KNR      KERALA                   670001 09-JUN-71 A                            
+                                                                                
+
+   CUST_NO FIRST_NAME           LAST_NAME            ADDRESS                    
+---------- -------------------- -------------------- --------------------       
+CITY     STATE                       PIN B_DATE    S                            
+-------- -------------------- ---------- --------- -                            
+      1006 SHILPA               PAI                  12/4B                      
+MNG      KARNATAKA                574154 11-DEC-70 I                            
+                                                                                
+      1007 BOSCO                RAKSHIT              R.K. PLAZA                 
+BNG      KARNATAKA                576201 01-JAN-71 A                            
+                                                                                
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE = 'KARNATAKA';
+
+   CUST_NO FIRST_NAME           LAST_NAME            ADDRESS                    
+---------- -------------------- -------------------- --------------------       
+CITY     STATE                       PIN B_DATE    S                            
+-------- -------------------- ---------- --------- -                            
+      1003 RAJ                  BAHADUR              SHANTI VILLA               
+UDP      KARNATAKA                576101 01-AUG-70 V                            
+                                                                                
+      1006 SHILPA               PAI                  12/4B                      
+MNG      KARNATAKA                574154 11-DEC-70 I                            
+                                                                                
+      1007 BOSCO                RAKSHIT              R.K. PLAZA                 
+BNG      KARNATAKA                576201 01-JAN-71 A                            
+                                                                                
+
+SQL> DELETE FROM CUSTOMER
+  2  WHERE PIN = 576201;
+
+1 row deleted.
+
+SQL> UPDATE CUSTOMER
+  2  SET PIN = 476001
+  3  WHERE CUST_NO = 1004;
+
+1 row updated.
+
+SQL> UPDATE CUSTOMER
+  2  SET ADDRESS = 'KAVI MUDDANNA MARG',
+  3      PIN = 576104
+  4  WHERE CUST_NO = 1003;
+
+1 row updated.
+
+SQL> DELETE FROM CUSTOMER
+  2  WHERE STATE = 'GOA';
+
+1 row deleted.
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATUS = 'I';
+
+no rows selected
+
+SQL> SELECT DISTINCT STATE
+  2  FROM CUSTOMER;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  ORDER BY STATE ASC;
+
+no rows selected
+
+SQL> SELECT STATE
+  2  FROM CUSTOMER
+  3  ORDER BY STATE DESC;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE = 'KARNATAKA'
+  4  AND STATUS = 'V';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE IN ('KARNATAKA', 'KERALA');
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE IN ('KARNATAKA', 'KERALA')
+  4  AND STATUS = 'A';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE = 'KARNATAKA'
+  4  AND PIN = 576201;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE CUST_NO <> 1005;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE STATE LIKE 'K%';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE FIRST_NAME LIKE '%RAJ%'
+  4     OR LAST_NAME LIKE '%RAJ%';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE CUST_NO BETWEEN 1003 AND 1005;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE B_DATE BETWEEN '10-JAN-71' AND '31-DEC-71';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM CUSTOMER
+  3  WHERE CITY IN ('UDP', 'MNG', 'BNG', 'PGN');
+
+no rows selected
+
+SQL> RENAME CUSTOMER TO CUST;
+
+Table renamed.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
